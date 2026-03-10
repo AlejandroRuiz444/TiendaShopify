@@ -1,0 +1,58 @@
+{% comment %}
+  Sección Hero Banner - Banner principal de la página
+{% endcomment %}
+
+<section class="hero-banner">
+  <div class="hero-content">
+    <h1 class="hero-title">{{ section.settings.hero_title | default: "Bienvenido a Nuestra Tienda" }}</h1>
+    <p class="hero-subtitle">{{ section.settings.hero_subtitle | default: "Descubre productos increíbles a precios excepcionales" }}</p>
+    <a href="{{ section.settings.hero_button_link | default: '/collections/all' }}" class="hero-button">
+      {{ section.settings.hero_button_text | default: "Ver Productos" }}
+    </a>
+  </div>
+  {% if section.settings.hero_image %}
+    <div class="hero-image" style="background-image: url('{{ section.settings.hero_image | img_url: '1920x' }}')"></div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Título Principal",
+      "default": "Bienvenido a Nuestra Tienda"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subtitle",
+      "label": "Subtítulo",
+      "default": "Descubre productos increíbles a precios excepcionales"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_text",
+      "label": "Texto del Botón",
+      "default": "Ver Productos"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Enlace del Botón",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Imagen de Fondo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

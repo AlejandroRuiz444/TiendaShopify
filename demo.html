@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo - Mi Tienda Shopify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css">
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+    
+    /* Estilos del Header */
+    .site-header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .main-nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-nav a {
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    .main-nav a:hover {
+      color: #3498db;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .header-icon {
+      position: relative;
+      color: #333;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    .header-icon:hover {
+      color: #3498db;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #e74c3c;
+      color: white;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: 600;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #333;
+      transition: 0.3s;
+    }
+
+    /* Estilos del Footer */
+    .site-footer {
+      background: #2c3e50;
+      color: white;
+      padding: 60px 0 20px;
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h3, .footer-column h4 {
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column a {
+      color: rgba(255,255,255,0.8);
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-nav {
+        display: none;
+      }
+      
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .header-actions {
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <a href="/" class="logo">
+          <h1>Mi Tienda</h1>
+        </a>
+        
+        <nav class="main-nav">
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+        
+        <div class="header-actions">
+          <a href="#" class="header-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </a>
+          <a href="#" class="header-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </a>
+          <a href="#" class="header-icon cart-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span class="cart-count">0</span>
+          </a>
+        </div>
+        
+        <button class="mobile-menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <h1 class="hero-title">Bienvenido a Nuestra Tienda</h1>
+        <p class="hero-subtitle">Descubre productos increíbles a precios excepcionales</p>
+        <a href="#productos" class="hero-button">Ver Productos</a>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+      <div class="container">
+        <h2 class="section-title">Productos Destacados</h2>
+        <p class="section-subtitle">Descubre nuestra selección especial</p>
+        
+        <div class="products-grid">
+          <!-- Producto 1 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop" alt="Producto 1" loading="lazy">
+              <span class="product-badge">Oferta</span>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="#">Auriculares Premium</a>
+              </h3>
+              <div class="product-price">
+                <span class="price">$79.99</span>
+                <span class="compare-price">$99.99</span>
+              </div>
+              <button class="add-to-cart-btn" data-product-id="1">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Producto 2 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop" alt="Producto 2" loading="lazy">
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="#">Reloj Inteligente</a>
+              </h3>
+              <div class="product-price">
+                <span class="price">$149.99</span>
+              </div>
+              <button class="add-to-cart-btn" data-product-id="2">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Producto 3 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop" alt="Producto 3" loading="lazy">
+              <span class="product-badge">Oferta</span>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="#">Gafas de Sol</a>
+              </h3>
+              <div class="product-price">
+                <span class="price">$49.99</span>
+                <span class="compare-price">$69.99</span>
+              </div>
+              <button class="add-to-cart-btn" data-product-id="3">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Producto 4 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop" alt="Producto 4" loading="lazy">
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="#">Mochila Urbana</a>
+              </h3>
+              <div class="product-price">
+                <span class="price">$89.99</span>
+              </div>
+              <button class="add-to-cart-btn" data-product-id="4">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Producto 5 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=400&fit=crop" alt="Producto 5" loading="lazy">
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="#">Zapatillas Deportivas</a>
+              </h3>
+              <div class="product-price">
+                <span class="price">$129.99</span>
+              </div>
+              <button class="add-to-cart-btn" data-product-id="5">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Producto 6 -->
+          <div class="product-card">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop" alt="Producto 6" loading="lazy">
+              <span class="product-badge">Oferta</span>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="#">Perfume de Lujo</a>
+              </h3>
+              <div class="product-price">
+                <span class="price">$59.99</span>
+                <span class="compare-price">$79.99</span>
+              </div>
+              <button class="add-to-cart-btn" data-product-id="6">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop" alt="Sobre Nosotros" loading="lazy">
+          </div>
+          <div class="about-content">
+            <h2 class="section-title" style="text-align: left;">Acerca de Nosotros</h2>
+            <div class="about-text">
+              <p>Somos una empresa dedicada a ofrecer los mejores productos con la más alta calidad. Nuestra misión es proporcionar una experiencia de compra excepcional a cada uno de nuestros clientes.</p>
+              <p>Con años de experiencia en el mercado, nos hemos convertido en un referente de confianza y calidad. Cada producto que ofrecemos ha sido cuidadosamente seleccionado para garantizar tu satisfacción.</p>
+            </div>
+            <a href="#" class="about-button">Conocer Más</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+        
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <p class="testimonial-text">"Excelente servicio y productos de calidad. ¡Muy recomendado!"</p>
+            <div class="testimonial-author">
+              <strong>María González</strong>
+              <span class="author-title">Cliente Verificada</span>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <p class="testimonial-text">"La mejor experiencia de compra que he tenido en línea."</p>
+            <div class="testimonial-author">
+              <strong>Carlos Rodríguez</strong>
+              <span class="author-title">Cliente Verificado</span>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+              <span class="star">★</span>
+            </div>
+            <p class="testimonial-text">"Productos increíbles y entrega rápida. Definitivamente volveré a comprar."</p>
+            <div class="testimonial-author">
+              <strong>Ana Martínez</strong>
+              <span class="author-title">Cliente Verificada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-content">
+          <h2 class="section-title">Suscríbete a Nuestro Newsletter</h2>
+          <p class="newsletter-subtitle">Recibe ofertas exclusivas y novedades directamente en tu correo</p>
+          
+          <form id="newsletter-form" class="newsletter-form">
+            <div class="form-group">
+              <input 
+                type="email" 
+                id="newsletter-email" 
+                placeholder="Tu correo electrónico" 
+                required
+                class="newsletter-input"
+              >
+              <button type="submit" class="newsletter-button">
+                Suscribirse
+              </button>
+            </div>
+          </form>
+          
+          <div id="newsletter-success" class="newsletter-message success" style="display: none;">
+            ¡Gracias por suscribirte! Revisa tu correo para confirmar.
+          </div>
+          <div id="newsletter-error" class="newsletter-message error" style="display: none;">
+            Hubo un error. Por favor, intenta de nuevo.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Mi Tienda</h3>
+          <p>Tu tienda de confianza para productos de calidad</p>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Enlaces rápidos</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Contacto</h4>
+          <ul>
+            <li>Email: info@mitienda.com</li>
+            <li>Tel: +34 123 456 789</li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Síguenos</h4>
+          <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mi Tienda. Todos los derechos reservados.</p>
+        <p>Powered by Shopify</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/theme.js"></script>
+  <script>
+    // Demo: Simular funcionalidad del carrito
+    let cartCount = 0;
+    
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const originalText = this.textContent;
+        this.textContent = '✓ Agregado';
+        this.style.background = '#4caf50';
+        
+        // Incrementar contador
+        cartCount++;
+        document.querySelector('.cart-count').textContent = cartCount;
+        
+        // Restablecer después de 2 segundos
+        setTimeout(() => {
+          this.textContent = originalText;
+          this.style.background = '';
+        }, 2000);
+      });
+    });
+
+    // Newsletter demo
+    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('newsletter-success').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('newsletter-success').style.display = 'none';
+        this.reset();
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% comment %}
+  Sección de Testimonios
+{% endcomment %}
+
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-title">{{ section.settings.section_title | default: "Lo Que Dicen Nuestros Clientes" }}</h2>
+    
+    <div class="testimonials-grid">
+      {% for block in section.blocks %}
+        <div class="testimonial-card" {{ block.shopify_attributes }}>
+          <div class="testimonial-rating">
+            {% for i in (1..5) %}
+              <span class="star">★</span>
+            {% endfor %}
+          </div>
+          <p class="testimonial-text">"{{ block.settings.testimonial_text }}"</p>
+          <div class="testimonial-author">
+            <strong>{{ block.settings.author_name }}</strong>
+            {% if block.settings.author_title %}
+              <span class="author-title">{{ block.settings.author_title }}</span>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonios",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Título de la Sección",
+      "default": "Lo Que Dicen Nuestros Clientes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonio",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "testimonial_text",
+          "label": "Texto del Testimonio"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Nombre del Cliente"
+        },
+        {
+          "type": "text",
+          "id": "author_title",
+          "label": "Cargo/Ubicación"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonios",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_text": "Excelente servicio y productos de calidad. ¡Muy recomendado!",
+            "author_name": "María González",
+            "author_title": "Cliente Verificada"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_text": "La mejor experiencia de compra que he tenido en línea.",
+            "author_name": "Carlos Rodríguez",
+            "author_title": "Cliente Verificado"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "testimonial_text": "Productos increíbles y entrega rápida. Definitivamente volveré a comprar.",
+            "author_name": "Ana Martínez",
+            "author_title": "Cliente Verificada"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

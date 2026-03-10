@@ -1,0 +1,84 @@
+{% comment %}
+  Sección de Productos Destacados
+{% endcomment %}
+
+<section class="featured-products">
+  <div class="container">
+    <h2 class="section-title">{{ section.settings.section_title | default: "Productos Destacados" }}</h2>
+    <p class="section-subtitle">{{ section.settings.section_subtitle }}</p>
+    
+    <div class="products-grid">
+      {% if section.settings.featured_collection %}
+        {% assign collection = collections[section.settings.featured_collection] %}
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          <div class="product-card">
+            <div class="product-image">
+              {% if product.featured_image %}
+                <a href="{{ product.url }}">
+                  <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.title }}" loading="lazy">
+                </a>
+              {% endif %}
+              {% if product.compare_at_price > product.price %}
+                <span class="product-badge">Oferta</span>
+              {% endif %}
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <div class="product-price">
+                <span class="price">{{ product.price | money }}</span>
+                {% if product.compare_at_price > product.price %}
+                  <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+              </div>
+              <button class="add-to-cart-btn" data-product-id="{{ product.id }}">
+                Agregar al Carrito
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>Por favor selecciona una colección en el editor de temas.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Productos Destacados",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Título de la Sección",
+      "default": "Productos Destacados"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Subtítulo"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Colección a Mostrar"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "label": "Número de Productos",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Productos Destacados"
+    }
+  ]
+}
+{% endschema %}

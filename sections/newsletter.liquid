@@ -1,0 +1,67 @@
+{% comment %}
+  Sección de Newsletter
+{% endcomment %}
+
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-content">
+      <h2 class="section-title">{{ section.settings.newsletter_title | default: "Suscríbete a Nuestro Newsletter" }}</h2>
+      <p class="newsletter-subtitle">{{ section.settings.newsletter_subtitle | default: "Recibe ofertas exclusivas y novedades directamente en tu correo" }}</p>
+      
+      <form action="/contact#newsletter" method="post" class="newsletter-form" id="newsletter-form">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="form-group">
+          <input 
+            type="email" 
+            name="contact[email]" 
+            id="newsletter-email" 
+            placeholder="Tu correo electrónico" 
+            required
+            class="newsletter-input"
+          >
+          <button type="submit" class="newsletter-button">
+            {{ section.settings.button_text | default: "Suscribirse" }}
+          </button>
+        </div>
+      </form>
+      
+      <div id="newsletter-success" class="newsletter-message success" style="display: none;">
+        ¡Gracias por suscribirte! Revisa tu correo para confirmar.
+      </div>
+      <div id="newsletter-error" class="newsletter-message error" style="display: none;">
+        Hubo un error. Por favor, intenta de nuevo.
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Título",
+      "default": "Suscríbete a Nuestro Newsletter"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_subtitle",
+      "label": "Subtítulo",
+      "default": "Recibe ofertas exclusivas y novedades directamente en tu correo"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto del Botón",
+      "default": "Suscribirse"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

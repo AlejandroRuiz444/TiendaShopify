@@ -1,0 +1,158 @@
+{% comment %}
+  Sección: Cuadrícula de Características
+  Muestra las características principales del negocio
+{% endcomment %}
+
+<section class="features-grid">
+  <div class="container">
+    <h2 class="section-title">{{ section.settings.section_title }}</h2>
+    
+    <div class="features-container">
+      {% for block in section.blocks %}
+        <div class="feature-item">
+          <div class="feature-icon">
+            {{ block.settings.icon_svg }}
+          </div>
+          <h3 class="feature-title">{{ block.settings.title }}</h3>
+          <p class="feature-description">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Características",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Título de la sección",
+      "default": "¿Por qué elegirnos?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Característica",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icono SVG",
+          "default": "<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/></svg>"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Calidad Premium"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descripción",
+          "default": "Productos de la más alta calidad seleccionados cuidadosamente"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Características",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Envío Gratis",
+            "description": "En compras superiores a $50"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Garantía de Calidad",
+            "description": "Productos 100% garantizados"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Soporte 24/7",
+            "description": "Estamos siempre disponibles"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Pago Seguro",
+            "description": "Transacciones protegidas"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.features-grid {
+  padding: 80px 0;
+  background: white;
+}
+
+.features-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 50%;
+  color: #2c3e50;
+}
+
+.feature-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.feature-title {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+.feature-description {
+  color: #666;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .features-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+{% endstylesheet %}

@@ -1,0 +1,73 @@
+{% comment %}
+  Sección Acerca de Nosotros
+{% endcomment %}
+
+<section class="about-section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image">
+        {% if section.settings.about_image %}
+          <img src="{{ section.settings.about_image | img_url: '800x' }}" alt="Sobre Nosotros" loading="lazy">
+        {% endif %}
+      </div>
+      <div class="about-content">
+        <h2 class="section-title">{{ section.settings.about_title | default: "Acerca de Nosotros" }}</h2>
+        <div class="about-text">
+          {{ section.settings.about_text | default: "Somos una empresa dedicada a ofrecer los mejores productos con la más alta calidad." }}
+        </div>
+        {% if section.settings.show_button %}
+          <a href="{{ section.settings.button_link }}" class="about-button">
+            {{ section.settings.button_text | default: "Conocer Más" }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Acerca de Nosotros",
+  "settings": [
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "Título",
+      "default": "Acerca de Nosotros"
+    },
+    {
+      "type": "richtext",
+      "id": "about_text",
+      "label": "Descripción",
+      "default": "<p>Somos una empresa dedicada a ofrecer los mejores productos con la más alta calidad.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "about_image",
+      "label": "Imagen"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Mostrar Botón",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto del Botón",
+      "default": "Conocer Más"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace del Botón"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Acerca de Nosotros"
+    }
+  ]
+}
+{% endschema %}

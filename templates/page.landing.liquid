@@ -1,0 +1,19 @@
+{% comment %}
+  Template: Landing Page
+  Uso: Página de aterrizaje personalizada para Shopify
+{% endcomment %}
+
+<div class="landing-page">
+  {% section 'hero-banner' %}
+  {% section 'featured-products' %}
+  {% section 'features-grid' %}
+  {% section 'testimonials' %}
+  {% section 'newsletter' %}
+</div>
+
+{% schema %}
+{
+  "name": "Landing Page",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {%- endif -%}
+
+  <!-- Preconnect a dominios externos -->
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- CSS del tema -->
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <!-- Header hooks -->
+  {{ content_for_header }}
+
+  <!-- Meta tags adicionales -->
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:title" content="{{ page_title | escape }}">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="{{ page_description | escape }}">
+
+  {%- if page_image -%}
+    <meta property="og:image" content="http:{{ page_image | img_url: '1200x1200' }}">
+    <meta property="og:image:secure_url" content="https:{{ page_image | img_url: '1200x1200' }}">
+  {%- endif -%}
+
+  <meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
+  
+  <!-- Encabezado -->
+  {% section 'header' %}
+
+  <!-- Contenido principal -->
+  <main role="main" id="main-content">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Pie de página -->
+  {% section 'footer' %}
+
+  <!-- JavaScript del tema -->
+  {{ 'theme.js' | asset_url | script_tag }}
+
+  <!-- Scripts de Shopify -->
+  {% if request.design_mode %}
+    <script src="https://cdn.shopify.com/s/files/1/0157/8217/t/1/assets/theme-editor.js"></script>
+  {% endif %}
+</body>
+</html>
